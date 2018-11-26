@@ -1,0 +1,16 @@
+{
+  "original_dir": "./booklet_defenition/original/",
+  "replacement_dir": "./booklet_defenition/replacement/",
+  "popup_file_dir": "./booklet_defenition/objs/",
+  "book_sheet_defenitions": [
+    {
+      "original": "QR_code_file_name",
+      "replacement": "replacement_file_file_name",
+      "popup_file": {
+        "file_name": "blowtorch.obj",
+        "scale": 4,
+        "offset": [0,0]
+      }
+    }
+  ]
+}
