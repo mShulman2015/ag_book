@@ -4,7 +4,34 @@
   "popup_file_dir": "./booklet_defenition/objs/",
   "book_sheet_defenitions": [
     {
-      "original": "QR_code_file_name",
+      "original": "frame_1.png",
+      "replacement": "replacement_file_file_name",
+      "popup_file": {
+        "file_name": "blowtorch.obj",
+        "scale": 4,
+        "offset": [0,0]
+      }
+    },
+    {
+      "original": "frame_2.png",
+      "replacement": "replacement_file_file_name",
+      "popup_file": {
+        "file_name": "blowtorch.obj",
+        "scale": 4,
+        "offset": [0,0]
+      }
+    },
+    {
+      "original": "frame_3.png",
+      "replacement": "replacement_file_file_name",
+      "popup_file": {
+        "file_name": "blowtorch.obj",
+        "scale": 4,
+        "offset": [0,0]
+      }
+    },
+    {
+      "original": "frame_4.png",
       "replacement": "replacement_file_file_name",
       "popup_file": {
         "file_name": "blowtorch.obj",

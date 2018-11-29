@@ -9,7 +9,7 @@ class Page:
     # self.des
     #
     # # replacement photo info
-    # self.replacement
+    # self.replacement_photo
     #
     # # replecement object info
     # self.obj
@@ -17,12 +17,20 @@ class Page:
     def __init__(self, info, original_dir, replacement_dir, popup_file_dir, feature_detector):
         # original photo info
         self.original_photo = cv2.imread(original_dir + info["original"])
+        if self.original_photo is not None:
+            print("loaded original: {} - {}".format(original_dir + info["original"], self.original_photo.shape))
+        else:
+            print("failed to load original: {}".format(original_dir + info["original"]))
         kp_model, des_model = feature_detector.detectAndCompute(self.original_photo, None)
         self.kps = kp_model
         self.des = des_model
 
         # replacement photo info
-        self.replacement = cv2.imread(replacement_dir + info["replacement"])
+        self.replacement_photo = cv2.imread(replacement_dir + info["replacement"])
+        if self.replacement_photo is not None:
+            print("loaded replacement: {} - {}".format(replacement_dir + info["replacement"], self.replacement_photo.shape))
+        else:
+            print("failed to load replacement: {}".format(replacement_dir + info["replacement"]))
 
         # replecement object info
         self.obj = OBJ(popup_file_dir + info["popup_file"]["file_name"], float(info["popup_file"]["scale"]), map(float, list(info["popup_file"]["offset"])))
