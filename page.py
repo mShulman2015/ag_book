@@ -1,3 +1,4 @@
+import numpy as np
 import cv2
 from obj import OBJ
 
@@ -10,6 +11,7 @@ class Page:
     #
     # # replacement photo info
     # self.replacement_photo
+    # self.replacement_to_real_transform
     #
     # # replecement object info
     # self.obj
@@ -31,6 +33,13 @@ class Page:
             print("loaded replacement: {} - {}".format(replacement_dir + info["replacement"], self.replacement_photo.shape))
         else:
             print("failed to load replacement: {}".format(replacement_dir + info["replacement"]))
+
+        # find the transform form the replacement photo to the one we're looking for
+        original_shape = self.original_photo.shape
+        replace_shape = self.replacement_photo.shape
+        original_points = np.array([[0, 0], [0, original_shape[0]], [original_shape[1], 0], [original_shape[1], original_shape[0]]])
+        replace_points = np.array([[0, 0], [0, replace_shape[0]], [replace_shape[1], 0], [replace_shape[1], replace_shape[0]]])
+        self.replacement_to_real_transform = cv2.findHomography(replace_points, original_points, cv2.RANSAC)[0]
 
         # replecement object info
         self.obj = OBJ(popup_file_dir + info["popup_file"]["file_name"], float(info["popup_file"]["scale"]), map(float, list(info["popup_file"]["offset"])))

@@ -5,7 +5,7 @@
   "book_sheet_defenitions": [
     {
       "original": "frame_1.png",
-      "replacement": "replacement_file_file_name",
+      "replacement": "replace_1.jpg",
       "popup_file": {
         "file_name": "blowtorch.obj",
         "scale": 4,
@@ -14,7 +14,7 @@
     },
     {
       "original": "frame_2.png",
-      "replacement": "replacement_file_file_name",
+      "replacement": "replace_1.jpg",
       "popup_file": {
         "file_name": "blowtorch.obj",
         "scale": 4,
@@ -23,7 +23,7 @@
     },
     {
       "original": "frame_3.png",
-      "replacement": "replacement_file_file_name",
+      "replacement": "replace_1.jpg",
       "popup_file": {
         "file_name": "blowtorch.obj",
         "scale": 4,
@@ -32,7 +32,7 @@
     },
     {
       "original": "frame_4.png",
-      "replacement": "replacement_file_file_name",
+      "replacement": "replace_1.jpg",
       "popup_file": {
         "file_name": "blowtorch.obj",
         "scale": 4,

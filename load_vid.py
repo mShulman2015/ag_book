@@ -51,7 +51,7 @@ while(cap.isOpened()):
 
     # compute the location of the pages we're looking for in the the frame
     page_location_info = v_tf.compute_page_location_info(gray)
-    final_frame = v_tf.compute_final_frame(gray, page_location_info) # TODO: replace gray -> frame when done
+    final_frame = v_tf.compute_final_frame(frame, page_location_info)
 
     # Display final
     cv2.imshow(final_file_name, final_frame)
