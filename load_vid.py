@@ -12,8 +12,6 @@ input_file = 'input.mp4'
 # video output specs
 output_video_path = './videos/output/'
 clean_file_name = 'clean.mp4'
-page_location_file_name = 'page_layout.mp4'
-flat_file_name = 'falt.mp4'
 final_file_name = 'final.mp4'
 
 # transformer input specs
@@ -34,8 +32,6 @@ print('video input size: {}'.format((width, height)))
 # setup output
 fourcc = cv2.VideoWriter_fourcc(*'DIVX')
 clean_writer = cv2.VideoWriter(output_video_path + clean_file_name, fourcc, 20.0, (width, height))
-page_location_writer = cv2.VideoWriter(output_video_path + page_location_file_name, fourcc, 20.0, (width, height))
-flat_writer = cv2.VideoWriter(output_video_path + flat_file_name, fourcc, 20.0, (width, height))
 final_writer = cv2.VideoWriter(output_video_path + final_file_name, fourcc, 20.0, (width, height))
 
 # setup transformer
@@ -49,29 +45,17 @@ while(cap.isOpened()):
 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    # Display the original frame
-    cv2.imshow(clean_file_name, frame)
-    clean_writer.write(frame)
+    # Display original
+    # cv2.imshow(clean_file_name, frame)
+    # clean_writer.write(frame)
 
     # compute the location of the pages we're looking for in the the frame
     page_location_info = v_tf.compute_page_location_info(gray)
-    page_locatoin_frame = v_tf.compute_page_locatoin_frame(gray, page_location_info)
-    # Display
-    cv2.imshow(page_location_file_name, page_locatoin_frame)
-    page_location_writer.write(page_locatoin_frame)
+    final_frame = v_tf.compute_final_frame(gray, page_location_info) # TODO: replace gray -> frame when done
 
-    # Display the frame with overlay for the 2D page
-    flat_transform = v_tf.compute_flat_transform(gray, page_location_info)
-    flat_frame = v_tf.compute_flat_frame(frame, flat_transform)
-    # Display
-    cv2.imshow(flat_file_name, flat_frame)
-    flat_writer.write(flat_frame)
-
-    # Display the final frame with 2D and 3D image overlayed
-    final_frame = v_tf.compute_final_frame(flat_frame, flat_transform)
-    # Display
+    # Display final
     cv2.imshow(final_file_name, final_frame)
-    final_writer.write(final_frame)
+    # final_writer.write(final_frame)
 
     # keep going untill 'q' key is pressed
     if cv2.waitKey(wait_time) & 0xFF == ord('q'):
@@ -80,7 +64,5 @@ while(cap.isOpened()):
 # When everything done, release everything
 cap.release()
 clean_writer.release()
-page_location_writer.release()
-flat_writer.release()
 final_writer.release()
 cv2.destroyAllWindows()

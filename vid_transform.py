@@ -22,21 +22,28 @@ class Transformer:
 
     # compute all the info we ned to find the location of the pages in the frame
     def compute_page_location_info(self, gray):
+        # find keypoints in fame we're looking at
         kps, des = self.detector.detectAndCompute(gray, None)
 
+        # find the best match for an image that we can see on a screen
+        # TODO: replace this with a list of all matches that are good enough
         best_matches = None
         best_M = None
         best_index = 0
         best_value = 0
         for i in range(len(self.pages)):
+            # compute the key point matches
             matches = self.matcher.match(self.pages[i].des, des)
             matches = sorted(matches, key=lambda x: x.distance)
 
+            # attempt to find a comography taht will work for the key pionts we're considering
             src_pts = np.float32([self.pages[i].kps[m.queryIdx].pt for m in matches]).reshape(-1, 1, 2)
             dst_pts = np.float32([kps[m.trainIdx].pt for m in matches]).reshape(-1, 1, 2)
             M, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
 
+            # certinty is number of inliers in homography
             certinty = sum(mask)
+            # maximal check
             if certinty > self.certinty_threshold and certinty > best_value:
                 best_matches = matches
                 best_M = M
@@ -44,30 +51,28 @@ class Transformer:
                 best_value = certinty
 
         return (kps, best_matches, best_M, best_index)
-    def compute_page_locatoin_frame(self, gray, page_location_info):
+
+    # using the transfromation place the 3D object into the image
+    def compute_final_frame(self, frame, page_location_info):
         kps, matches, M, best_index = page_location_info
 
+        # if we've failed to find a match return original image
         if matches is None:
-            return gray
+            return frame
 
-        # # show matches
+        # ouput option 1
+        # show matches
         # num_to_show = min(self.best_x_matches, len(matches))
-        # return cv2.drawMatches(self.pages[best_index].original_photo, self.pages[best_index].kps, gray, kps, matches[:num_to_show], 0, flags=2)
+        # return cv2.drawMatches(self.pages[best_index].original_photo, self.pages[best_index].kps, frame, kps, matches[:num_to_show], 0, flags=2)
 
-        # show outline off transform
+        # ouput option 2
+        # show outline of transform
         h, w = self.pages[best_index].original_photo.shape[:2]
         pts = np.float32([[0, 0], [0, h - 1], [w - 1, h - 1], [w - 1, 0]]).reshape(-1, 1, 2)
         # project corners into frame
         dst = cv2.perspectiveTransform(pts, M)
         # connect them with lines
-        return cv2.polylines(gray, [np.int32(dst)], True, best_index * 255.0 / len(self.pages[1:]), 3, cv2.LINE_AA)
+        return cv2.polylines(frame, [np.int32(dst)], True, best_index * 255.0 / len(self.pages[1:]), 3, cv2.LINE_AA)
 
-    # compute the transform to a new image onto the old image location
-    def compute_flat_transform(self, gray, page_location_info):
-        return None
-    def compute_flat_frame(self, frame, flat_transform):
-        return frame
-
-    # using the transfromation place the 3D object into the image
-    def compute_final_frame(self, flat_frame, flat_transform):
-        return flat_frame
+        # output option 3
+        # show the image we are trying to overlay in the right location
