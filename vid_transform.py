@@ -45,7 +45,7 @@ class Transformer:
             hom_transform, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
 
             # certinty is number of inliers in homography
-            certinty = sum(mask)
+            certinty = int(sum(mask))
             # maximal check
             if certinty > self.certinty_threshold:
                 best_matches.append(matches)
@@ -60,7 +60,7 @@ class Transformer:
         true_certinties = []
         order = np.argsort(certinties)[::-1]
         for index in order:
-            p1 = self.getPolCorners(best_hom_transforms, gray.shape)
+            p1 = self.getPolyCorners(best_hom_transforms[index], gray.shape)
 
             interserct = False
             for i in range(len(true_best_matches)):
@@ -76,7 +76,7 @@ class Transformer:
                 true_certinties.append(certinties[index])
 
         # return results for image cmoputations
-        return (kps, best_matches, best_hom_transforms, page_indcies, certinties)
+        return (kps, true_best_matches, true_best_hom_transforms, true_page_indcies, true_certinties)
 
     # using the transfromation place the 3D object into the image
     def compute_final_frame(self, frame, page_location_info):
