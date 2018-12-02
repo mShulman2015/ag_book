@@ -1,4 +1,5 @@
 import os
+import numpy as np
 
 class OBJ:
     # location and scale properties
@@ -6,7 +7,7 @@ class OBJ:
     # self.offset
     #
     # # obj properties
-    # self.vertecies
+    # self.vertices
     # self.normals
     # self.faces
 
@@ -18,7 +19,7 @@ class OBJ:
             print("Could not load output obj: {}".format(file_path))
             return
 
-        self.vertecies = []
+        self.vertices = []
         self.normals = []
         self.faces = []
         for line in open(file_path):
@@ -29,15 +30,24 @@ class OBJ:
                 continue
 
             if line[0] == "v":
-                self.vertecies.append(map(float, line[1:4]))
+                self.vertices.append(np.array( [float(line[1]), float(line[2]), float(line[3])] ))
             elif line[0] == "vn":
-                self.normals.append(map(float, line[1:4]))
+                self.normals.append(np.array( [float(line[1]), float(line[2]), float(line[3])] ))
             elif line[0] == "f":
                 face = []
-                for vert in line[1:]:
-                    vert = vert.split('/')
-                    # vertex, texture(ignored for now), normal
-                    face.append((vert[0], None, vert[2]))
+                texcoords = []
+                norms = []
+                for v in line[1:]:
+                    w = v.split('/')
+                    face.append(int(w[0]))
+                    if len(w) >= 2 and len(w[1]) > 0:
+                        texcoords.append(int(w[1]))
+                    else:
+                        texcoords.append(0)
+                    if len(w) >= 3 and len(w[2]) > 0:
+                        norms.append(int(w[2]))
+                    else:
+                        norms.append(0)
 
-                self.faces.append(face)
-        print("Loaded obj file: {}  - {} vertecies, {} faces".format(file_path, len(self.vertecies), len(self.faces)))
+                self.faces.append((face, norms, texcoords))
+        print("Loaded obj file: {}  - {} vertices, {} faces".format(file_path, len(self.vertices), len(self.faces)))
