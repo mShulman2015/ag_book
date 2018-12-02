@@ -98,21 +98,21 @@ class Transformer:
             # ouput option 2
             # show outline of transform
             ###########################################################################################################
-            h, w = self.pages[best_index].original_photo.shape[:2]
-            pts = np.float32([[0, 0], [0, h - 1], [w - 1, h - 1], [w - 1, 0]]).reshape(-1, 1, 2)
-            # project corners into frame
-            dst = cv2.perspectiveTransform(pts, hom_transform)
-            # connect them with lines
-            frame = cv2.polylines(frame, [np.int32(dst)], True, best_index * 255.0 / len(self.pages[1:]), 3, cv2.LINE_AA)
+            # h, w = self.pages[best_index].original_photo.shape[:2]
+            # pts = np.float32([[0, 0], [0, h - 1], [w - 1, h - 1], [w - 1, 0]]).reshape(-1, 1, 2)
+            # # project corners into frame
+            # dst = cv2.perspectiveTransform(pts, hom_transform)
+            # # connect them with lines
+            # frame = cv2.polylines(frame, [np.int32(dst)], True, best_index * 255.0 / len(self.pages[1:]), 3, cv2.LINE_AA)
             ###########################################################################################################
 
             # output option 3
             # show the image we are trying to overlay in the right location
             ###########################################################################################################
-            # transform = np.matmul(hom_transform, self.pages[best_index].replacement_to_real_transform)
-            # res_img = cv2.warpPerspective(self.pages[best_index].replacement_photo, transform, (frame.shape[1], frame.shape[0]))
-            # res_mask = np.where(res_img > 0, 0, 1)
-            # frame = np.multiply(res_mask.astype(np.uint8), frame) + res_img
+            transform = np.matmul(hom_transform, self.pages[best_index].replacement_to_real_transform)
+            res_img = cv2.warpPerspective(self.pages[best_index].replacement_photo, transform, (frame.shape[1], frame.shape[0]))
+            res_mask = np.where(res_img > 0, 0, 1)
+            frame = np.multiply(res_mask.astype(np.uint8), frame) + res_img
             ###########################################################################################################
 
             # output option 4
