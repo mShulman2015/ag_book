@@ -42,4 +42,11 @@ class Page:
         self.replacement_to_real_transform = cv2.findHomography(replace_points, original_points, cv2.RANSAC)[0]
 
         # replecement object info
-        self.obj = OBJ(popup_file_dir + info["popup_file"]["file_name"], float(info["popup_file"]["scale"]), map(float, list(info["popup_file"]["offset"])))
+        colors = list(map(int, list(info["popup_file"]["display_color"])))
+        self.obj = OBJ(popup_file_dir + info["popup_file"]["file_name"], \
+                        float(info["popup_file"]["scale"]), \
+                        list(map(float, list(info["popup_file"]["offset"]))), \
+                        original_shape[:2], \
+                        (colors[0], colors[1], colors[2]), \
+                        bool(info["popup_file"]["swap_y_z"])
+        )

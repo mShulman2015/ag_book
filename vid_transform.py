@@ -118,8 +118,8 @@ class Transformer:
             # output option 4
             # project the obj onto the target image
             ###########################################################################################################
-            # projection = self.projection_matrix(self.camera_parameters, hom_transform)
-            # frame = self.render(frame, self.pages[best_index].obj, projection, self.pages[best_index].original_photo.shape[:2])
+            projection = self.projection_matrix(self.camera_parameters, hom_transform)
+            frame = self.render(frame, self.pages[best_index].obj, projection)
             ###########################################################################################################
         return frame
 
@@ -150,19 +150,14 @@ class Transformer:
         projection = np.stack((rot_1, rot_2, rot_3, translation)).T
         return np.dot(camera_parameters, projection)
 
-    def render(self, frame, obj, projection, model_shape):
+    def render(self, frame, obj, projection):
         """
         Render a loaded obj model into the current video frame
         """
-        h, w = model_shape
-
         for face in obj.faces:
-            points = np.array([obj.vertices[vertex - 1] * obj.scale for vertex in face[0]])
-            # render model in the middle of the reference surface. To do so,
-            # model points must be displaced
-            points = np.array([[p[0] + w / 2, p[1] + h / 2, p[2]] for p in points]) # TODO: off load this computation
-            dst = cv2.perspectiveTransform(points.reshape(-1, 1, 3), projection).astype(np.int32)
-            cv2.fillConvexPoly(frame, dst, (137, 27, 211))
+            points = np.array([obj.vertices[vertex - 1] for vertex in face[0]]).reshape(-1, 1, 3)
+            dst = cv2.perspectiveTransform(points, projection).astype(np.int32)
+            cv2.fillConvexPoly(frame, dst, obj.display_color)
 
         return frame
 

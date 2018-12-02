@@ -9,7 +9,9 @@
       "popup_file": {
         "file_name": "blowtorch.obj",
         "scale": 4,
-        "offset": [0,0]
+        "offset": [0, 0, 0],
+        "display_color": [137, 27, 211],
+        "swap_y_z": "True"
       }
     },
     {
@@ -18,7 +20,9 @@
       "popup_file": {
         "file_name": "blowtorch.obj",
         "scale": 4,
-        "offset": [0,0]
+        "offset": [0, 0, 0],
+        "display_color": [137, 27, 211],
+        "swap_y_z": "True"
       }
     },
     {
@@ -27,7 +31,9 @@
       "popup_file": {
         "file_name": "blowtorch.obj",
         "scale": 4,
-        "offset": [0,0]
+        "offset": [0, 0, 0],
+        "display_color": [137, 27, 211],
+        "swap_y_z": "True"
       }
     },
     {
@@ -36,7 +42,9 @@
       "popup_file": {
         "file_name": "blowtorch.obj",
         "scale": 4,
-        "offset": [0,0]
+        "offset": [0, 0, 0],
+        "display_color": [137, 27, 211],
+        "swap_y_z": "True"
       }
     }
   ]
