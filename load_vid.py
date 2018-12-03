@@ -43,19 +43,22 @@ while(cap.isOpened()):
     if not ret:
         break
 
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
     # Display original
-    # cv2.imshow(clean_file_name, frame)
-    # clean_writer.write(frame)
+    cv2.imshow(clean_file_name, frame)
+    clean_writer.write(frame)
 
-    # compute the location of the pages we're looking for in the the frame
-    page_location_info = v_tf.compute_page_location_info(gray)
-    final_frame = v_tf.compute_final_frame(frame, page_location_info)
+    while True:
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+        # compute the location of the pages we're looking for in the the frame
+        page_location_info = v_tf.compute_page_location_info(gray)
+        if page_location_info[1] is None:
+            break
+        frame = v_tf.compute_final_frame(frame, page_location_info)
 
     # Display final
-    cv2.imshow(final_file_name, final_frame)
-    # final_writer.write(final_frame)
+    cv2.imshow(final_file_name, frame)
+    final_writer.write(frame)
 
     # keep going untill 'q' key is pressed
     if cv2.waitKey(wait_time) & 0xFF == ord('q'):
