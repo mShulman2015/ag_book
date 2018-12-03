@@ -15,8 +15,8 @@ class Transformer:
 
         self.detector = cv2.ORB_create()
         self.matcher = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
-        self.best_x_matches = 30 # number of best matches to keep when displaying result
-        self.certinty_threshold = 0.6 # % of inliers we require to consider a valid match
+        self.best_x_matches = 20 # number of best matches to keep when displaying result
+        self.certinty_threshold = 0.5 # % of inliers we require to consider a valid match
 
         self.camera_parameters = np.array([[800, 0, 320], [0, 800, 240], [0, 0, 1]])
 
