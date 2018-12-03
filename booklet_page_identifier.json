@@ -5,10 +5,10 @@
   "book_sheet_defenitions": [
     {
       "original": "frame_1.png",
-      "replacement": "replace_1.jpg",
+      "replacement": "im1.jpg",
       "popup_file": {
-        "file_name": "blowtorch.obj",
-        "scale": 4,
+        "file_name": "dog2.obj",
+        "scale": 30,
         "offset": [0, 0, 0],
         "display_color": [137, 27, 211],
         "swap_y_z": "True"
@@ -16,10 +16,10 @@
     },
     {
       "original": "frame_2.png",
-      "replacement": "replace_1.jpg",
+      "replacement": "im4.jpg",
       "popup_file": {
-        "file_name": "blowtorch.obj",
-        "scale": 4,
+        "file_name": "basset.obj",
+        "scale": 30,
         "offset": [0, 0, 0],
         "display_color": [137, 27, 211],
         "swap_y_z": "True"
@@ -27,10 +27,10 @@
     },
     {
       "original": "frame_3.png",
-      "replacement": "replace_1.jpg",
+      "replacement": "im5.jpg",
       "popup_file": {
-        "file_name": "blowtorch.obj",
-        "scale": 4,
+        "file_name": "cattledog.obj",
+        "scale": 5,
         "offset": [0, 0, 0],
         "display_color": [137, 27, 211],
         "swap_y_z": "True"
@@ -38,10 +38,10 @@
     },
     {
       "original": "frame_4.png",
-      "replacement": "replace_1.jpg",
+      "replacement": "im2.jpg",
       "popup_file": {
-        "file_name": "blowtorch.obj",
-        "scale": 4,
+        "file_name": "canaandog.obj",
+        "scale": 5,
         "offset": [0, 0, 0],
         "display_color": [137, 27, 211],
         "swap_y_z": "True"
