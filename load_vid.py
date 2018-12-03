@@ -2,7 +2,7 @@ import cv2
 from vid_transform import Transformer
 
 # video input specs
-read_from_webcam = True
+read_from_webcam = False
 # input webcam index
 input_cam_index = 0
 # from file
