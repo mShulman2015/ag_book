@@ -19,9 +19,9 @@
       "replacement": "im4.jpg",
       "popup_file": {
         "file_name": "basset.obj",
-        "axies_index": [2, 0, 1],
-        "scale": [-60, 60, 60],
-        "offset": [0, -20, 0],
+        "axies_index": [0, 2, 1],
+        "scale": [-60, -60, 60],
+        "offset": [0, 40, 0],
         "display_color": [137, 27, 211]
       }
     },
