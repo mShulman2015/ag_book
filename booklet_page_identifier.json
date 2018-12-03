@@ -8,10 +8,10 @@
       "replacement": "im1.jpg",
       "popup_file": {
         "file_name": "dog2.obj",
-        "scale": 40,
+        "scale": [40, 40, 40],
         "offset": [0, 0, 0],
         "display_color": [137, 27, 211],
-        "swap_y_z": "True"
+        "axies_index": [0, 2, 1]
       }
     },
     {
@@ -19,10 +19,10 @@
       "replacement": "im4.jpg",
       "popup_file": {
         "file_name": "basset.obj",
-        "scale": 60,
+        "scale": [60, 60, 60],
         "offset": [0, 0, 0],
         "display_color": [137, 27, 211],
-        "swap_y_z": "True"
+        "axies_index": [0, 2, 1]
       }
     },
     {
@@ -30,10 +30,10 @@
       "replacement": "im5.jpg",
       "popup_file": {
         "file_name": "cattledog.obj",
-        "scale": 1.5,
+        "scale": [1.5, 1.5, 1.5],
         "offset": [0, 0, 0],
         "display_color": [137, 27, 211],
-        "swap_y_z": "True"
+        "axies_index": [0, 2, 1]
       }
     },
     {
@@ -41,10 +41,10 @@
       "replacement": "im2.jpg",
       "popup_file": {
         "file_name": "canaandog.obj",
-        "scale": 1,
+        "scale": [1, 1, 1],
         "offset": [0, 0, 0],
         "display_color": [137, 27, 211],
-        "swap_y_z": "True"
+        "axies_index": [0, 2, 1]
       }
     }
   ]

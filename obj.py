@@ -11,11 +11,15 @@ class OBJ:
     # self.normals
     # self.faces
 
-    def __init__(self, file_path, scale, offset, input_dimentions, display_color, swap_y_z=True):
-        self.scale = scale
-        self.offset = np.array(offset, dtype=np.float64)
-        self.display_color = display_color
+    def __init__(self, file_dir, info, input_dimentions):
+        self.scale = np.array(list(map(float, info["scale"])))
+        self.offset = np.array(list(map(float, info["offset"])))
+        colors = list(map(int, list(info["display_color"])))
+        self.display_color = (colors[0], colors[1], colors[2])
 
+        re_orderer = list(map(int, info["axies_index"]))
+
+        file_path = file_dir + info["file_name"]
         if not os.path.isfile(file_path):
             print("Could not load output obj: {}".format(file_path))
             return
@@ -31,15 +35,9 @@ class OBJ:
                 continue
 
             if line[0] == "v":
-                if not swap_y_z:
-                    self.vertices.append([float(line[1]), float(line[2]), float(line[3])])
-                else:
-                    self.vertices.append([float(line[1]), float(line[3]), float(line[2])])
+                self.vertices.append(np.array([float(line[1]), float(line[2]), float(line[3])])[re_orderer])
             elif line[0] == "vn":
-                if not swap_y_z:
-                    self.normals.append([float(line[1]), float(line[2]), float(line[3])])
-                else:
-                    self.normals.append([float(line[1]), float(line[3]), float(line[2])])
+                self.normals.append(np.array([float(line[1]), float(line[2]), float(line[3])])[re_orderer])
             elif line[0] == "f":
                 face = []
                 texcoords = []
@@ -58,6 +56,6 @@ class OBJ:
 
                 self.faces.append((face, norms, texcoords))
         page_center = np.array([input_dimentions[1]/2, input_dimentions[0]/2, 0])
-        self.vertices = np.array(self.vertices) * self.scale + (page_center + offset)
+        self.vertices = np.multiply(np.array(self.vertices), self.scale) + (page_center + self.offset)
         self.normals = np.array(self.normals)
         print("Loaded obj file: {}  - {} vertices, {} faces".format(file_path, len(self.vertices), len(self.faces)))
